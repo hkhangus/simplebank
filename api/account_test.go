@@ -5,7 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -112,7 +112,7 @@ func TestCreateAccountAPI(t *testing.T) {
 		name			 string
 		body	         gin.H
 		buildStubs	 	 func(store *mockdb.MockStore)
-		expectStatus	 int
+		checkResponse	 func(recorder *httptest.ResponseRecorder)
 	}{
 		{
 			name: "OK",
@@ -132,7 +132,10 @@ func TestCreateAccountAPI(t *testing.T) {
 					Times(1).
 					Return(account, nil)
 			},
-			expectStatus: http.StatusOK,
+			checkResponse: func(recorder *httptest.ResponseRecorder){
+				require.Equal(t, http.StatusOK, recorder.Code)
+				requireBodyMatchAccount(t, recorder.Body, account)
+			},
 		},
 		{
 			name: "InvalidOwner",
@@ -145,7 +148,9 @@ func TestCreateAccountAPI(t *testing.T) {
 					CreateAccount(gomock.Any(), gomock.Any()).
 					Times(0)					
 			},
-			expectStatus: http.StatusBadRequest,
+			checkResponse: func(recorder *httptest.ResponseRecorder){
+				require.Equal(t, http.StatusBadRequest, recorder.Code)
+			},
 		},
 		{
 			name: "InvalidCurrency",
@@ -158,7 +163,9 @@ func TestCreateAccountAPI(t *testing.T) {
 					CreateAccount(gomock.Any(), gomock.Any()).
 					Times(0)					
 			},
-			expectStatus: http.StatusBadRequest,
+			checkResponse: func(recorder *httptest.ResponseRecorder){
+				require.Equal(t, http.StatusBadRequest, recorder.Code)
+			},
 		},
 		{
 			name: "InternalError",
@@ -178,7 +185,9 @@ func TestCreateAccountAPI(t *testing.T) {
 					Times(1).
 					Return(db.Account{}, sql.ErrConnDone)
 			},
-			expectStatus: http.StatusInternalServerError,
+			checkResponse: func(recorder *httptest.ResponseRecorder){
+				require.Equal(t, http.StatusInternalServerError, recorder.Code)
+			},
 		},
 	}
 
@@ -204,7 +213,7 @@ func TestCreateAccountAPI(t *testing.T) {
 			require.NoError(t, err)
 
 			server.router.ServeHTTP(recorder, request)
-			require.Equal(t, tc.expectStatus, recorder.Code)
+			tc.checkResponse(recorder)
 		})
 	}
 }
@@ -219,7 +228,7 @@ func randomAccount() db.Account {
 }
 
 func requireBodyMatchAccount(t *testing.T, body *bytes.Buffer, account db.Account) {
-	data, err := ioutil.ReadAll(body)
+	data, err := io.ReadAll(body)
 	require.NoError(t, err)	
 
 	var gotAccount db.Account
