@@ -8,6 +8,12 @@ require (
 )
 
 require (
+	github.com/golang/mock v1.6.0 // indirect
+	golang.org/x/mod v0.12.0 // indirect
+	golang.org/x/tools v0.13.0 // indirect
+)
+
+require (
 	github.com/bytedance/sonic v1.11.6 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
