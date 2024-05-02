@@ -13,7 +13,7 @@ import (
 type createUserRequest struct {
 	Username    string `json:"username" binding:"required,alphanum"`
 	Password    string `json:"password" binding:"required,min=6"`
-	FullName    string `json:"fullname" binding:"required"`
+	FullName    string `json:"full_name" binding:"required"`
 	Email 		string `json:"email" binding:"required,email"`
 }
 
@@ -45,6 +45,8 @@ func (server *Server) createUser(ctx *gin.Context) {
 		Email: 			req.Email,
 	}
 
+	// arg = db.CreateUserParams{}
+
 	user, err := server.store.CreateUser(ctx, arg)
 	if err != nil {
 		if pqErr, ok := err.(*pq.Error); ok {
@@ -61,7 +63,7 @@ func (server *Server) createUser(ctx *gin.Context) {
 	rsp := createUserResponse {
 		Username: 			user.Username,
 		FullName: 			user.FullName,
-		Email: 				user.Username,
+		Email: 				user.Email,
 		PasswordChangedAt: 	user.PasswordChangedAt,
 		CreatedAt: 			user.CreatedAt,
 	}
