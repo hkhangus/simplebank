@@ -3,14 +3,19 @@ module github.com/techschool/simplebank
 go 1.22.1
 
 require (
+	github.com/aead/chacha20poly1305 v0.0.0-20170617001512-233f39982aeb
 	github.com/gin-gonic/gin v1.9.1
+	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/golang/mock v1.6.0
+	github.com/google/uuid v1.6.0
 	github.com/lib/pq v1.10.9
+	github.com/o1egl/paseto v1.0.0
 )
 
 require (
-	github.com/golang/mock v1.6.0 // indirect
-	golang.org/x/mod v0.12.0 // indirect
-	golang.org/x/tools v0.13.0 // indirect
+	github.com/aead/chacha20 v0.0.0-20180709150244-8b13a72661da // indirect
+	github.com/aead/poly1305 v0.0.0-20180717145839-3fee0db0b635 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 )
 
 require (
@@ -23,7 +28,7 @@ require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.19.0 // indirect
+	github.com/go-playground/validator/v10 v10.19.0
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -41,14 +46,14 @@ require (
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/spf13/viper v1.18.2 // indirect
+	github.com/spf13/viper v1.18.2
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
-	golang.org/x/arch v0.7.0 // indirectgo get github.com/spf13/viper
-	golang.org/x/crypto v0.22.0 // indirect
+	golang.org/x/arch v0.7.0 // indirect; indirectgo get github.com/spf13/viper
+	golang.org/x/crypto v0.22.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/sys v0.19.0 // indirect
