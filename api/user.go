@@ -82,7 +82,7 @@ type loginUserRequest struct {
 }
 
 type loginUserResponse struct {
-	SessionID				uuid.UUID	 `json:session_id`
+	SessionID				uuid.UUID	 `json:"session_id"`
 	AccessToken 			string 		 `json:"access_token"`
 	AccessTokenExpiresAt	time.Time	 `json:"access_token_expires_at"`
 	RefreshToken 			string 		 `json:"refresh_token"`
